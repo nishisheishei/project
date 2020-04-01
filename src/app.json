@@ -1,0 +1,66 @@
+{
+  "pages": [
+    "pages/index/main",
+    "pages/logs/main",
+    "pages/channel/main",
+    "pages/relation/main",
+    "pages/skeleton/main",
+    "pages/more/main",
+    "pages/search/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "视界王国",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#fff",
+    "backgroundColor": "#000",
+    "selectedColor": "#fff",
+    "borderStyle": "black",
+
+    "list": [
+      {
+        "text": "推荐",
+        "pagePath": "pages/index/main",
+        "iconPath": "static/tabs/cards-active.png",
+        "selectedIconPath": "static/tabs/cards-default.png"
+      }, 
+      {
+        "text": "频道",
+        "pagePath": "pages/channel/main",
+        "iconPath": "static/tabs/home-active.png",
+        "selectedIconPath": "static/tabs/home-default.png"
+      }, 
+      {
+        "text": "联系",
+        "pagePath": "pages/relation/main",
+        "iconPath": "static/tabs/face-active.png",
+        "selectedIconPath": "static/tabs/face-default.png"
+      }
+    ],
+
+    "items": [
+      {
+        "name": "推荐",
+        "pagePath": "pages/index/main",
+        "icon": "static/tabs/cards-active.png",
+        "activeIcon": "static/tabs/cards-default.png"
+      }, 
+      {
+        "name": "频道",
+        "pagePath": "pages/channel/main",
+        "icon": "static/tabs/home-active.png",
+        "activeIcon": "static/tabs/tabs/home-default.png"
+      }, 
+      {
+        "name": "联系",
+        "pagePath": "pages/relation/main",
+        "icon": "static/tabs/face-active.png",
+        "activeIcon": "static/tabs/tabs/face-default.png"
+      }
+    ],
+    "position": "bottom"
+  }
+}
