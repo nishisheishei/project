@@ -1,7 +1,7 @@
 <template>
    <div>
      <view class="log-list">
-        <video class="log-item" autoplay  controls  :src=" 'http://47.92.233.71:9000' + skeletonData.vUrl"/>
+        <video custom-cache="false" class="log-item" autoplay  controls  :src=" 'https://shijiewangguo.cn:9000' + skeletonData.vUrl"/>
       </view>
       <view class="logs-biaoti">
         <view class="biao-ti">

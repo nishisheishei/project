@@ -1,13 +1,15 @@
 <template>
   
-  <div class="channel">
-    <div class="box" v-for="(item, index) in designation" :key="index" @click="handleChannelGain(item)" >
-      <div class="tupian">
-          <image :src=" 'http://47.92.233.71:9000' + item.typeImgUrl" />
-          <text >{{ item.typeName }}</text>
+  <!-- <div style="width: 100%; height: 100%"> -->
+    <div class="channel">
+      <div class="box" v-for="(item, index) in designation" :key="index" @click="handleChannelGain(item)" >
+        <div class="tupian">
+            <image :src=" 'https://shijiewangguo.cn:9000' + item.typeImgUrl" />
+            <text >{{ item.typeName }}</text>
+        </div>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -16,11 +18,16 @@ import request from "@/utils/request"
 export default {
   data() {
     return {
-      designation: []
+      designation: [],
+      page: 1
     }
   },
   created () {},
   mounted() {
+    this.channelGetData()
+  },
+  onReachBottom() {
+    this.page++
     this.channelGetData()
   },
   methods: {
@@ -28,9 +35,15 @@ export default {
       const { data } = await request({
         url: '/api/wprogram/loadChannel',
         method: 'POST',
-        data: {}
+        data: {
+          page: this.page
+        }
       })
-      this.designation = data
+      let arrList = []
+      arrList = data
+      for(var i = 0; i < arrList.length; i++) {
+        this.designation.push(arrList[i])
+      }
     },
 
     handleChannelGain(value) {
@@ -47,8 +60,7 @@ export default {
 .channel {
   width: 100%;
   height: 100%;
-  background-color: black;
-  position: fixed;
+   background: black;
 }
 
 .channel .box {
@@ -75,4 +87,4 @@ export default {
     text-align: center;
     position: absolute;
 }
-</style>>
+</style>

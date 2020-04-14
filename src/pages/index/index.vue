@@ -1,39 +1,26 @@
 <template>
   <div class="content">
-    <!-- 搜索框 -->
     <div class="content-input" @click="handleSkip">
-      <input type="text" placeholder="搜索精彩短片" disabled >
+      <input type="text"  disabled placeholder="搜索" >
     </div>
-    <!-- 轮播图 -->
-    <!-- <swiper class="font-swiper" indicator-dots indicator-color="rgba(235,68,80)" indicator-active-color="#4daaf9">
-      <swiper-item class="font-item">
-        <image src="../../static/tabs/remen.png"></image>
-      </swiper-item>
-      <swiper-item class="font-item">
-        <image src="../../static/tabs/remen.png"></image>
-      </swiper-item>
-      <swiper-item class="font-item">
-        <image src="../../static/tabs/remen.png"></image>
-      </swiper-item>
-      <swiper-item class="font-item">
-        <image src="../../static/tabs/remen.png"></image>
-      </swiper-item>
-    </swiper> -->
-    <!-- 图片展示区域 -->
-    <div class="font-image" v-for="(item, index) in contentList" :key="index" @click="handlePostBotton(item)"> 
-      <image :src="'http://47.92.233.71:9000' + item.vCoverUrl"></image>
-      <div class="font-whole">
-        <div class="font-span">
-          <span></span>
-          <span>{{ item.vTimeLength }}</span>
-          <span>#{{ item.vTypeName }}</span>
+
+    <div style="margin-top: 20rpx;">
+        <div class="font-image" v-for="(item, index) in contentList" :key="index" @click="handlePostBotton(item)"> 
+          <image :src="'https://shijiewangguo.cn:9000' + item.vCoverUrl"></image>
+          <div class="font-whole">
+            <div class="font-span">
+              <span></span>
+              <span>{{ item.vTimeLength }}</span>
+              <span>#{{ item.vTypeName }}</span>
+            </div>
+            <div class="font-field">
+              <span>{{ item.vName }}</span>
+            </div>
+          </div>
         </div>
-        <div class="font-field">
-          <span>{{ item.vName }}</span>
-        </div>
-      </div>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -44,22 +31,57 @@ export default {
   data () {
     return {
       contentList: [],
-      value: []
+      value: [],
+      page: 1,
+      scrollHeight: ''
     }
   },
 
   components: {
     // card
   },
+  created () {},
+  mounted () {
+    this.getHomeList()
+    // this.loading()
+  },
+  // 下拉刷新 //  "enablePullDownRefresh": true,
+  // 上拉加载
+  onReachBottom() {
+    this.page++
+    this.getHomeList()
+  },
 
   methods: {
+    // loading () {
+    //   let data  = [ { name: "qw", age: 12} ,{ name: "ls", age: 12} ]
+    //   let arr = [ { name: 'xioa', age : 34 } ]
+    //   // data.push(arr)
+    //   for(let i = 0; i < arr.length; i++) {
+    //     data.push(arr[i])
+    //   }
+    //   console.log(data)
+
+    // },
     async getHomeList () {
-      const { data } = await request({
-        url: "/api/wprogram/loadRecommend",
-        method: "POST",
-        data: ""
-      })
-      this.contentList = data
+      try{
+        const { data } = await request({
+          url: "/api/wprogram/loadRecommend",
+          method: "POST",
+          data: {
+            page: this.page
+            // rows: 3
+          }
+        })
+        let arrList = []
+        arrList = data
+        for(var i = 0; i < arrList.length; i++) {
+          this.contentList.push(arrList[i])
+        }
+        // this.contentList = data
+      } catch (err) {
+        console.log(err)
+      }
     },
     handlePostBotton(value) {
       let url = '/pages/skeleton/main?param=' + JSON.stringify(value)
@@ -74,24 +96,17 @@ export default {
       })
     }
   },
-
-  created () {
-    // this.getHomeList()
-
-  },
-  mounted () {
-    this.getHomeList()
-  },
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+
 /* 搜索框 */
-.content {
+ .content {
   width: 100%;
   height: 100%;
   background-color: black;
-  position: fixed;
+  padding-top: 20rpx;
 }
 .content-input {
   width: 710rpx;
@@ -99,24 +114,17 @@ export default {
   border: 1rpx solid #ccc;
   border-radius: 10rpx;
   background-color: #ccc;
-  margin: 20rpx 20rpx;
+  margin: 0 20rpx;
+  // padding-top: 20rpx;
 }
 .content-input input {
   font-size: 24rpx;
   color: #fff;
+  // margin-left: 20rpx;
 }
 
-/* 轮播图 */
-.font-swiper {
-  width: 100%;
-  height: 400rpx;
-  background-color: #ccc;
-}
-.font-item image {
-  width: 100%;
-  height: 400rpx;
-}
-/* 图片区域 */
+
+
 .font-image {
   position: relative;
   height: 400rpx;
@@ -143,7 +151,7 @@ export default {
   margin-top: 10rpx;
   margin: 0 44rpx;
   color: #fff;
-  /* 设置一行文字 多出来的以。。。方式表示 */
+  // 设置一行文字 多出来的以。。。方式表示 
   overflow: hidden;
   display:-webkit-box;
   text-overflow:ellipsis;
@@ -151,4 +159,8 @@ export default {
   -webkit-box-orient:vertical;
   -webkit-line-clamp:1;
 }
+
+.content .scroll_view {
+  height: 100%;
+} 
 </style>

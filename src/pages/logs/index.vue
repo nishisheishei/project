@@ -1,7 +1,7 @@
 <template>
    <div>
     <view class="log-list">
-    <video class="log-item" autoplay  controls  src=""/>
+    <video custom-cache="false" class="log-item" autoplay  controls  src=""/>
     </view>
     <view class="logs-biaoti">
     <view class="biao-ti">

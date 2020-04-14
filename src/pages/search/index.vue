@@ -16,7 +16,7 @@
       </div> -->
       <div v-if="hidden" class="font-hidd">
         <div class="font-image" v-for="(item, index) in moreListData" :key="index" @click="handleMoreBotton(item)"> 
-          <image :src="'http://47.92.233.71:9000' + item.vCoverUrl"></image>
+          <image :src="'https://shijiewangguo.cn:9000' + item.vCoverUrl"></image>
           <div class="font-whole">
             <div class="font-span">
             <span></span>
